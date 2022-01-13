@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "SupportNotification.Ws": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
