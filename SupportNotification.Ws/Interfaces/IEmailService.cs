@@ -1,5 +1,5 @@
 ﻿using FluentEmail.Core.Models;
-using SupportNotification.Ws.Models;
+using SupportNotification.Ws.Models.Requests;
 
 namespace SupportNotification.Ws.Interfaces
 {

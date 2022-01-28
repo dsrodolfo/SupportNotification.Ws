@@ -1,4 +1,4 @@
-﻿namespace SupportNotification.Ws.Models
+﻿namespace SupportNotification.Ws.Models.Requests
 {
     public class TicketRequest
     {

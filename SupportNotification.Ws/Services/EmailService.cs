@@ -3,7 +3,7 @@ using FluentEmail.Core.Models;
 using FluentEmail.Razor;
 using FluentEmail.Smtp;
 using SupportNotification.Ws.Interfaces;
-using SupportNotification.Ws.Models;
+using SupportNotification.Ws.Models.Requests;
 using System.Net.Mail;
 
 namespace SupportNotification.Ws.Services
@@ -11,10 +11,10 @@ namespace SupportNotification.Ws.Services
     public class EmailService : IEmailService
     {
         private readonly ITemplateService _templateService;
-        private readonly WorkerSettings _workerSettings;
+        private readonly IWorkerSettings _workerSettings;
 
         public EmailService(ITemplateService templateService, 
-                            WorkerSettings workerSettings)
+                            IWorkerSettings workerSettings)
         {
             _templateService = templateService;
             _workerSettings = workerSettings;

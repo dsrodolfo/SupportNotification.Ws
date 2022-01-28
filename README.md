@@ -18,3 +18,11 @@ Support Notification is a worker service responsible to notify via e-mail the IT
      <td>3.0.0</td>  
   </tr>
 </table>
+
+## SOLID Principles
+
+<table>
+	<tr>
+	  <td>Dependency Inversion</td>
+	</tr>
+</table>

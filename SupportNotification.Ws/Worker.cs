@@ -1,5 +1,5 @@
 using SupportNotification.Ws.Interfaces;
-using SupportNotification.Ws.Models;
+using SupportNotification.Ws.Models.Requests;
 
 namespace SupportNotification.Ws
 {
@@ -35,8 +35,16 @@ namespace SupportNotification.Ws
                         if (sendResponse.Successful)
                         {
                             _logger.LogInformation("Email sent at: {time}", DateTimeOffset.Now);
-                            _ticketService.DeleteJsonTicket(ticketRequest.TicketId);
-                            _logger.LogInformation("JSON Ticket deleted", DateTimeOffset.Now);
+                            bool isTicketDeleted = _ticketService.DeleteJsonTicket(ticketRequest.TicketId);
+
+                            if (isTicketDeleted)
+                            {
+                                _logger.LogInformation("JSON Ticket deleted", DateTimeOffset.Now);
+                            }
+                            else
+                            {
+                                _logger.LogError("Impossible to delete the JSON Ticket", DateTimeOffset.Now);
+                            }
                         }
                         else
                         {

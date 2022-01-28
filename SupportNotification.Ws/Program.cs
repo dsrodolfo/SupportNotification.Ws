@@ -7,7 +7,8 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         IConfiguration configuration = hostContext.Configuration;
         WorkerSettings settings = configuration.GetSection("Settings").Get<WorkerSettings>();
-        services.AddSingleton(settings);
+        services.AddSingleton<IWorkerSettings>(settings);
+
         services.AddSingleton<ITemplateService, TemplateService>();
         services.AddSingleton<IEmailService, EmailService>();
         services.AddSingleton<ITicketService, TicketService>();

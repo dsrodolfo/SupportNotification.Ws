@@ -1,4 +1,4 @@
-﻿using SupportNotification.Ws.Models;
+﻿using SupportNotification.Ws.Models.Requests;
 
 namespace SupportNotification.Ws.Interfaces
 {
@@ -6,6 +6,6 @@ namespace SupportNotification.Ws.Interfaces
     {
         TicketRequest? GetTicket();
 
-        void DeleteJsonTicket(int id);
+        bool DeleteJsonTicket(int id);
     }
 }

@@ -1,44 +1,56 @@
 ﻿using Newtonsoft.Json;
 using SupportNotification.Ws.Interfaces;
-using SupportNotification.Ws.Models;
+using SupportNotification.Ws.Models.Requests;
 
 namespace SupportNotification.Ws.Services
 {
     public class TicketService : ITicketService
     {
-        private readonly WorkerSettings _workerSettings;
+        private readonly IWorkerSettings _workerSettings;
 
-        public TicketService(WorkerSettings workerSettings)
+        public TicketService(IWorkerSettings workerSettings)
         {
             _workerSettings = workerSettings;
         }
 
         public TicketRequest? GetTicket()
         {
-            string[] files = Directory.GetFiles(_workerSettings.NewTicketsDirectory);
-
-            if (files.Any())
+            if (!string.IsNullOrWhiteSpace(_workerSettings.NewTicketsDirectory))
             {
-                using StreamReader reader = new StreamReader(files[0]);
-                string json = reader.ReadToEnd();
-                var ticket = JsonConvert.DeserializeObject<TicketRequest>(json);
+                string[] files = Directory.GetFiles(_workerSettings.NewTicketsDirectory);
 
-                return ticket;
+                if (files.Any())
+                {
+                    using StreamReader reader = new StreamReader(files[0]);
+                    string json = reader.ReadToEnd();
+                    var ticket = JsonConvert.DeserializeObject<TicketRequest>(json);
+
+                    return ticket;
+                }
             }
 
             return null;
         }
 
-        public void DeleteJsonTicket(int id)
+        public bool DeleteJsonTicket(int id)
         {
-            string[] files = Directory.GetFiles(_workerSettings.NewTicketsDirectory);
-            string? path = files.Where(x => x.Contains(id.ToString()))
-                                .FirstOrDefault();
-
-            if (!string.IsNullOrWhiteSpace(path))
+            if (!string.IsNullOrWhiteSpace(_workerSettings.NewTicketsDirectory))
             {
-                File.Delete(path);
+                string[] files = Directory.GetFiles(_workerSettings.NewTicketsDirectory);
+                string? path = files.Where(x => x.Contains(id.ToString()))
+                                    .FirstOrDefault();
+
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    File.Delete(path);
+
+                    return true;
+                }
+
+                return false;
             }
+
+            return false;
         }
     }
 }
